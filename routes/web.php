@@ -17,13 +17,13 @@ use Kutia\Larafirebase\Facades\Larafirebase;
 */
 
 Route::get('/', function () {
-
+//server key : AAAAeFNUr_c:APA91bHpOxvq56UoC6i7yAWyPZcz769vKgyM4kVTk5FkbaXUy1jumZ-hZKkqWbys29MNP8q21kNM9_DeFzzsCwytc_3eZLacR2dASViNrCOeMlUv4vpzga1_PzfrqA6hCOxw1QlTI_88
 //    $deviceTokens = User::whereDay('birthday', now()->format('d'))
 //        ->whereMonth('birthday', now()->format('m'))
 //        ->pluck('device_token')
 //        ->toArray();
     PushNotificationJob::dispatch('sendBatchNotification', [
-        '7e3e3325ac53a2125cf267fed358fd19',
+        'd0508ff948131aea4a151cc2d532cd3ddd2b80ef5016ef7f87d2b5df4d6d629a',
         [
             'topicName' => '/topics/test',
             'title' => 'Chúc mứng sinh nhật',
