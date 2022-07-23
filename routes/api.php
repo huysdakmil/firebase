@@ -17,3 +17,8 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+//..Other routes
+
+Route::get('send-notification', [App\Http\Controllers\NotificationController::class, 'send']);
+
+

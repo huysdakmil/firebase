@@ -2,8 +2,11 @@
 
 use App\Jobs\PushNotificationJob;
 use App\Models\User;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 use Kutia\Larafirebase\Facades\Larafirebase;
+use Kreait\Firebase\Messaging\CloudMessage;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -17,17 +20,21 @@ use Kutia\Larafirebase\Facades\Larafirebase;
 */
 
 Route::get('/', function () {
+    if(request('name')?:false){
+        dd('ok2');
+    }
+    dd('ok');
 //server key : 'AAAAeFNUr_c:APA91bHpOxvq56UoC6i7yAWyPZcz769vKgyM4kVTk5FkbaXUy1jumZ-hZKkqWbys29MNP8q21kNM9_DeFzzsCwytc_3eZLacR2dASViNrCOeMlUv4vpzga1_PzfrqA6hCOxw1QlTI_88'
 //    $deviceTokens = User::whereDay('birthday', now()->format('d'))
 //        ->whereMonth('birthday', now()->format('m'))
 //        ->pluck('device_token')
 //        ->toArray();
     PushNotificationJob::dispatch('sendBatchNotification', [
-        '39a56088-e727-468c-940c-b8fd60428f41',
+        'd0508ff948131aea4a151cc2d532cd3ddd2b80ef5016ef7f87d2b5df4d6d629a',
 //        'd0508ff948131aea4a151cc2d532cd3ddd2b80ef5016ef7f87d2b5df4d6d629a',
     //team id: 336TBZ25TJ
         [
-            'topicName' => '/topics/test',
+            'topicName' => '336TBZ25TJ',
             'title' => 'Chúc mứng sinh nhật',
             'body' => 'Chúc bạn sinh nhật vui vẻ',
             'image' => 'https://picsum.photos/536/354',
@@ -94,4 +101,22 @@ Route::get('3', function () {
     }
     fclose($connection);
 });
+Route::get('4',function(){
 
+    $deviceToken = 'd0508ff948131aea4a151cc2d532cd3ddd2b80ef5016ef7f87d2b5df4d6d629a';
+
+    $messaging = CloudMessage::withTarget('token', $deviceToken)
+        ->withNotification($notification) // optional
+        ->withData($data) // optional
+    ;
+
+    $message = CloudMessage::fromArray([
+        'token' => $deviceToken,
+        'notification' => [/* Notification data as array */], // optional
+        'data' => [/* data array */], // optional
+    ]);
+
+    $messaging->send($message);
+});
+//Key ID: S34KP28HYS
+//team ID: 336TBZ25TJ
